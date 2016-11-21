@@ -29,8 +29,8 @@ function wp_autenticacao_ad_init() {
  * Detecta acoes do usuário relacionadas à intranet
  */
 function wp_autenticacao_ad_acao() {
-	if (isset($_POST['minc_acao'])) {
-		switch ($_POST['minc_acao']) {
+	if (isset($_POST['acao'])) {
+		switch ($_POST['acao']) {
 			case 'logout': wp_autenticacao_ad_logout(); break;
 			case 'login': wp_autenticacao_ad_login(); break;
 			case 'salvar_dados_pessoais': wp_autenticacao_ad_salvar_dados_pessoais(); break;
@@ -62,14 +62,6 @@ function wp_autenticacao_ad_login() {
 			$dao = new UsuarioDAO();
 			$logado = $dao->getByLogin($_POST["login"]);
 			$_SESSION["usuario_intranet"] = $logado;
-			
-			if (!$logado->isCadastroCompleto()) {
-                //
-			} else if (isset($_SESSION["minc_url"])) {
-				$url = $_SESSION["minc_url"];
-				unset($_SESSION["minc_url"]);
-			}
-			
 		} else {
 			wp_autenticacao_ad_add_message('Erro de acesso ao sistema - Usuário ou senha incorreto.');
 		}
@@ -97,18 +89,6 @@ function wp_autenticacao_ad_get_usuario() {
  */
 function wp_autenticacao_ad_is_logado() {
     return isset($_SESSION['usuario_intranet']);
-}
-
-/**
- * Testa se o usuário já completou o seu cadastro
- */
-function wp_autenticacao_ad_is_cadastro_completo() {
-    if (wp_autenticacao_ad_is_logado()) {
-		$logado = wp_autenticacao_ad_get_usuario();
-		return $logado->isCadastroCompleto();
-	}
-	
-	return true;
 }
 
 /**
@@ -167,7 +147,7 @@ add_action('admin_menu', 'wp_autenticacao_ad_admin_menu');
  */
 function wp_autenticacao_ad_admin_menu() {
 
-	add_menu_page('Minc Intranet', 'Minc Intranet', 'administrator', 'menu_minc_configuracoes', 'wp_autenticacao_ad_pagina_configuracoes');
+	add_menu_page('Autenticação AD', 'Autenticação AD', 'administrator', 'autenticacao_ad_configuracoes', 'wp_autenticacao_ad_pagina_configuracoes');
 	
 	add_action('admin_init', 'wp_autenticacao_ad_configuracoes' );
 }
@@ -184,7 +164,10 @@ function wp_autenticacao_ad_configuracoes() {
 	register_setting( 'wp-autenticacao-ad', 'db_host' );
 	register_setting( 'wp-autenticacao-ad', 'db_database' );
 	register_setting( 'wp-autenticacao-ad', 'db_username' );
-	register_setting( 'wp-autenticacao-ad', 'db_password' );
+    register_setting( 'wp-autenticacao-ad', 'db_password' );
+    
+    register_setting( 'wp-autenticacao-ad', 'titulo_login' );
+    register_setting( 'wp-autenticacao-ad', 'texto_logon' );
 }
 
 /**
@@ -192,10 +175,29 @@ function wp_autenticacao_ad_configuracoes() {
  */
 function wp_autenticacao_ad_pagina_configuracoes() { ?>
 	<div class="wrap">
-		<h2>Minc Intranet</h2>
+
+		<h1>Autenticação no Active Directory - AD </h1>
 
 		<form method="post" action="options.php">
 			<?php settings_fields( 'wp-autenticacao-ad' ); ?>
+
+			<h3>Mensagens</h3>
+
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row">Título login</th>
+					<td><input type="text" name="titulo_login" value="<?php echo get_option('titulo_login'); ?>" /></td>
+				</tr>
+				
+				<tr valign="top">
+					<th scope="row">Texto logon</th>
+					<td><textarea cols="100" rows="3" name="texto_logon"><?php echo get_option('texto_logon'); ?></textarea>
+					  <p id="texto_logon-description" class="description">Ex: "Bem vindo/a ao AD", @primeiro_nome. </p>
+					  
+					</td>
+				</tr>
+				 
+			</table>				
 			
 			<h3>Active Directory</h3>
 			<table class="form-table">
@@ -344,10 +346,10 @@ class Wp_Autenticacao_Ad_Widget extends WP_Widget {
 
     public function __construct() {
         $widget_ops = array( 
-			'classname' => 'intranet_login',
-			'description' => 'Barra de login',
+			'classname' => 'wp-autenticacao-ad_login',
+			'description' => 'Fazer login no AD',
 		);
-		parent::__construct( 'wp_autenticacao_ad_login', 'Barra de login', $widget_ops );
+		parent::__construct( 'wp_autenticacao_ad_login', 'Fazer login no AD', $widget_ops );
     }
 
     
@@ -376,22 +378,22 @@ class Wp_Autenticacao_Ad_Widget extends WP_Widget {
    $usuario = wp_autenticacao_ad_get_usuario();
 ?>
 	<div class="caixa_bem_vindo">	
-        <div>
-            <span>Bem vindo/a, <?php echo $usuario->getApelido() ?></span>
-        </div>
-	<br clear="all" />
-
-        <form action="<?php echo wp_autenticacao_ad_get_url() ?>" method="post" class="caixa_bem_vindo">
-	  <input type="hidden" name="minc_acao" value="logout"/>
-          <input type="submit" value="Sair" class="txtIndent" />
-        </form>
-	<br clear="all" />
-   
+          <div>
+	    <span><?php echo get_option('texto_logon'); ?>, <?php echo $usuario->getApelido() ?></span>
+          </div>
+	  <br clear="all" />
+	  
+          <form action="<?php echo wp_autenticacao_ad_get_url() ?>" method="post" class="caixa_bem_vindo">
+	    <input type="hidden" name="acao" value="logout"/>
+            <input type="submit" value="Sair" class="txtIndent" />
+          </form>
+	  <br clear="all" />
+	  
 	</div>
 <?php
         } else {
 ?>
-            <h3>Login na rede MinC</h3>
+            <h3><?php echo get_option('titulo_login'); ?></h3>
             <form action="<?php echo wp_autenticacao_ad_get_url() ?>" method="post" class="caixa_login">
               
               <label>Login</label>
@@ -400,7 +402,7 @@ class Wp_Autenticacao_Ad_Widget extends WP_Widget {
 	      <label>Senha</label>
 	      <input type="password" name="senha" value="senha" onfocus="if(this.value=='senha') this.value='';" onblur="if(this.value=='') this.value='senha';" />
 	      
-              <input type="hidden" name="minc_acao" value="login"/>
+              <input type="hidden" name="acao" value="login"/>
 	      
               <input type="submit" value="Ok" class="txtIndent" />
 
