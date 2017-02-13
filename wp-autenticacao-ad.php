@@ -307,6 +307,17 @@ function wp_autenticacao_ad_fix_get($args) {
 	}
 }
 
+ /**
+ * função de logut
+ */
+function wp_autenticacao_ad_verifica_login() {
+    if (isset($_REQUEST['acao']) {
+        if ($_REQUEST['acao'] == 'logout') {
+            wp_autenticacao_ad_logout();
+        }
+    }
+}
+
 /**
  * Retorna o IP
  */
@@ -334,6 +345,9 @@ function wp_autenticacao_ad_get_ip() {
 	}
 	return $ip;
 }
+
+
+
 
 /**
  * Tribe_Image_Widget class
@@ -408,6 +422,12 @@ class Wp_Autenticacao_Ad_Widget extends WP_Widget {
               <input type="submit" value="Ok" class="txtIndent" />
 
             </form>
+            
+            
+            <form action="http://intranet.cultura.gov.br/" method="post" class="caixa_bem_vindo">
+            <input name="acao" value="logout" type="hidden">
+            <input value="Sair" class="txtIndent" type="submit">
+            </form>
 <?php
   
         }        
@@ -418,3 +438,5 @@ class Wp_Autenticacao_Ad_Widget extends WP_Widget {
 add_action( 'widgets_init', function(){
 	register_widget( 'wp_autenticacao_ad_widget' );
 });
+
+add_action('init', 'wp_autenticacao_ad_verifica_login', 1);
