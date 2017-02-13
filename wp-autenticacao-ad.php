@@ -311,7 +311,7 @@ function wp_autenticacao_ad_fix_get($args) {
  * função de logut
  */
 function wp_autenticacao_ad_verifica_login() {
-    if (isset($_REQUEST['acao']) {
+    if (isset($_REQUEST['acao'])) {
         if ($_REQUEST['acao'] == 'logout') {
             wp_autenticacao_ad_logout();
         }
