@@ -418,12 +418,7 @@ class Wp_Autenticacao_Ad_Widget extends WP_Widget {
               <input type="submit" value="Ok" class="txtIndent" />
 
             </form>
-            
-            
-            <form action="http://intranet.cultura.gov.br/" method="post" class="caixa_bem_vindo">
-            <input name="acao" value="logout" type="hidden">
-            <input value="Sair" class="txtIndent" type="submit">
-            </form>
+                        
 <?php
   
         }        
