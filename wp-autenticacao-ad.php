@@ -396,8 +396,8 @@ class Wp_Autenticacao_Ad_Widget extends WP_Widget {
 	    <span><?php echo get_option('texto_logon'); ?>, <?php echo $usuario->getApelido() ?></span>
           </div>
           <br clear="all" />
-          <a href="http://intra/srh/ponto/ctrRegistraFrequencia/ctrRegistraFrequencia.php?sLogon=<?php echo $usuario->getLogin() ?>&sIp=<?php echo wp_autenticacao_ad_get_ip(); ?>">ponto</a>
-          <br clear="all" /><br clear="all" />
+            <iframe width="400" height="350" src="http://intra/srh/ponto/ctrRegistraFrequencia/ctrRegistraFrequencia.php?sLogon=<?php echo $usuario->getLogin() ?>&sIp=<?php echo wp_autenticacao_ad_get_ip(); ?>">ponto</iframe>
+            <br clear="all" /><br clear="all" />
           <form action="<?php echo wp_autenticacao_ad_get_url() ?>" method="post" class="caixa_bem_vindo">
 	    <input type="hidden" name="acao" value="logout"/>
             <input type="submit" value="Sair" class="txtIndent" />
