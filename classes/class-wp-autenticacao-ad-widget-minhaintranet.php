@@ -41,11 +41,6 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranet extends WP_Widget {
         if ($usuario = wp_autenticacao_ad_is_logado()) {
             $cpf = $usuario->getLogin();
 ?>
-            <iframe src="http://intranet.minc.gov.br/intrascript/spoa/cgmi/email/relemail.idc" marginheight="0" marginwidth="0" scrolling="yes" width="680" height="647" frameborder="0">
-                               
-<?php
-        } else {
-?>
 <div class="caixa_internas caixa_minhasferramentas">
                         
                         <h2>Minha Página na Intranet</h2>
@@ -99,7 +94,22 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranet extends WP_Widget {
                         </div>
                         
                     </div>
-
+<?php
+        } else {
+?>
+<h3><?php echo get_option('titulo_login'); ?></h3>
+<form action="<?php echo wp_autenticacao_ad_get_url() ?>" method="post" class="caixa_login">
+  
+  <label>Login</label>
+  <input type="text" name="login" value="login" onfocus="if(this.value=='login') this.value='';" onblur="if(this.value=='') this.value='login';" />
+  
+  <label>Senha</label>
+  <input type="password" name="senha" value="senha" onfocus="if(this.value=='senha') this.value='';" onblur="if(this.value=='') this.value='senha';" />
+  
+  <input type="hidden" name="acao" value="login"/>
+  
+  <input type="submit" value="Ok" class="txtIndent" />
+</form>
 <?php
   
         }        
