@@ -42,13 +42,24 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranet extends WP_Widget {
             $usuario = wp_autenticacao_ad_get_usuario();
             $cpf = $usuario->getLogin();
 ?>
+<style>
+.caixa_conteudo {
+    float: left;
+    width: 60%;
+}
+
+.caixa_menuinternas {
+    float: right;
+    width: 20.875%;
+}
+</style>
 <div class="caixa_internas caixa_minhasferramentas">
                         
                         <h2>Minha Página na Intranet</h2>
                    		
                         <div class="caixa_conteudo">
                 			
-                          <iframe name="iframeMinhaPagina" width="450" height="500" frameborder="0" src="http://intranet.minc.gov.br/intrascript/spoa/cgmi/credsist/usuarede.idc?LOGON_USER=<?php echo $cpf; ?>&amp;operacao=LOGON&amp;etapa=LOGON&amp;opcao=S"></iframe>
+                          <iframe name="iframeMinhaPagina" width="100%" height="500" frameborder="0" src="http://intranet.minc.gov.br/intrascript/spoa/cgmi/credsist/usuarede.idc?LOGON_USER=<?php echo $cpf; ?>&amp;operacao=LOGON&amp;etapa=LOGON&amp;opcao=S"></iframe>
                         </div>
                         
                         <div class="caixa_menuinternas">
