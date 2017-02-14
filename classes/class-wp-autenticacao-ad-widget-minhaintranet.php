@@ -38,7 +38,8 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranet extends WP_Widget {
         } 
 
 		// outputs the content of the widget
-        if ($usuario = wp_autenticacao_ad_is_logado()) {
+        if (wp_autenticacao_ad_is_logado()) {
+            $usuario = wp_autenticacao_ad_get_usuario();
             $cpf = $usuario->getLogin();
 ?>
 <div class="caixa_internas caixa_minhasferramentas">
