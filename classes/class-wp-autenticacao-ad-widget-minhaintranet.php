@@ -47,12 +47,12 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranet extends WP_Widget {
 <style>
 .caixa_conteudo {
     float: left;
-    width: 60%;
+    width: 80%;
 }
 
 .caixa_menuinternas {
     float: right;
-   width: 20.875%;
+   width: 19%;
 }
 </style>
 <div class="caixa_internas caixa_minhasferramentas">
