@@ -41,57 +41,60 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranet extends WP_Widget {
         if (wp_autenticacao_ad_is_logado()) {
             $usuario = wp_autenticacao_ad_get_usuario();
             $cpf = $usuario->getLogin();
+            $meuMenu = wp_autenticacao_ad_meu_menu();
 ?>
+            
+<style>
+.caixa_conteudo {
+    float: left;
+    width: 60%;
+}
+
+.caixa_menuinternas {
+    float: right;
+   width: 20.875%;
+}
+</style>
 <div class="caixa_internas caixa_minhasferramentas">
                         
                         <h2>Minha Página na Intranet</h2>
                    		
                         <div class="caixa_conteudo">
                 			
-                          <iframe name="iframeMinhaPagina" width="450" height="500" frameborder="0" src="http://intranet.minc.gov.br/intrascript/spoa/cgmi/credsist/usuarede.idc?LOGON_USER=<?php echo $cpf; ?>&amp;operacao=LOGON&amp;etapa=LOGON&amp;opcao=S"></iframe>
+                          <iframe name="iframeMinhaPagina" width="100%" height="500" frameborder="0" src="http://intranet.minc.gov.br/intrascript/spoa/cgmi/credsist/usuarede.idc?LOGON_USER=<?php echo $cpf; ?>&amp;operacao=LOGON&amp;etapa=LOGON&amp;opcao=S"></iframe>
                         </div>
                         
                         <div class="caixa_menuinternas">
                 			
                             <h3 class="txtIndent">Serviços</h3>
                             
-			    <h4>Cadastros</h4>
-			    <ul>
-			      <li>
-				<a href="http://intranet.minc.gov.br/IntraScript/spoa/cgmi/credsist/atuacada.idc?LOGON_USER=<?php echo $cpf; ?>&amp;etapa=ATUACADA&amp;operacao=LOGON" class="meuMenuPopup">Cadastro Pessoal</a>
-			      </li>
-			      <li><a href="http://intranet.minc.gov.br/IntraScript/spoa/cgmi/credsist/atuaaces.idc?LOGON_USER=<?php echo $cpf; ?>&amp;etapa=CARREGA&amp;operacao=ACESSOS&amp;opcao=P" class="meuMenuPopup">Sistemas Ativos</a>
-			      </li>
-			    </ul>
-			    <h4>Recursos Humanos</h4>
-			    <ul>
-			      <li>
-				<a href="http://intranet.minc.gov.br/IntraScript/spoa/cgmi/sae/solicite.idc?LOGON_USER=<?php echo $cpf; ?>&amp;servico=http://intra/srh/ponto/frmfolhaponto.php" class="meuMenuPopup">Imp. Folha Ponto</a>
-			      </li>
-			      <li>
-				<a href="http://intranet.minc.gov.br/IntraScript/spoa/cgmi/sae/solicite.idc?LOGON_USER=<?php echo $cpf; ?>&amp;servico=http://intra/srh/ferias/avisoferias.html" class="meuMenuPopup">Progr. de Férias</a>
-			      </li>
-			      <li>
-				<a href="http://intranet.minc.gov.br/IntraScript/spoa/cgmi/sae/solicite.idc?LOGON_USER=<?php echo $cpf; ?>&amp;servico=http://intra/srh/ir/frmimprenda.php" class="meuMenuPopup">Form Imp Renda</a>
-			      </li>
-			      <li>
-				<a href="http://intranet.minc.gov.br/IntraScript/spoa/cgmi/sae/solicite.idc?LOGON_USER=<?php echo $cpf; ?>&amp;servico=http://intra/srh/ponto/ctrRegistraFrequencia/ctrRegistraFrequencia.php" class="meuMenuPopup">Ponto On-Line</a>
-			      </li>
-			      <li>
-				<a href="http://intranet.minc.gov.br/IntraScript/spoa/cgmi/frequencia/ponto.idc?LOGON_USER=<?php echo $cpf; ?>" class="meuMenuPopup">Folha Frequência</a>
-			      </li>
-			      <li><a href="http://intranet.minc.gov.br/IntraScript/spoa/cgmi/sae/solicite.idc?LOGON_USER=<?php echo $cpf; ?>&amp;servico=http://intra/srh/ponto/frmrecesso.php" class="meuMenuPopup">Recesso de fim de ano</a>
-			      </li>
-			    </ul>
-			    <h4>Demandas</h4>
-			    <ul>
-			      <li>
-				<a href="http://intranet.minc.gov.br/IntraScript/spoa/cgmi/sae/dgisrv.idc?LOGON_USER=<?php echo $cpf; ?>&amp;servico=mUsuario/mUsuario.php" class="meuMenuPopup">CGLOG (Recursos Logísticos)</a>
-			      </li>
-			      <li>
-				<a href="http://atendeti.cultura.gov.br?LOGON_USER=<?php echo $cpf; ?>" target="_blank"> atendeTI - Central de Sv de TI</a>
-			      </li>
-			    </ul>
+							<?php 
+							if (isset($meuMenu)) { 
+								$i = 0;
+								foreach ($meuMenu as $meuMenuItem) {
+									
+									if ($meuMenuItem['srv_link'] == null) {
+										if ($i > 0) echo '</ul>';
+										echo '<h4>' . utf8_encode($meuMenuItem['srv_titulo']) . '</h4>';
+										echo '<ul>';
+									
+									} else {	
+										if ($meuMenuItem['srv_codigo'] == 52) {
+										$target = ($meuMenuItem['srv_janela'] == 'pop-up') ? "class='meuMenuPopup'" : "target='blank'";
+                                                                                echo '<li><a href="' . $meuMenuItem['srv_linke'] . '" target="_blank"> ' . utf8_encode($meuMenuItem['srv_titulo']) . '</a></li>';
+
+										} else { 
+										$target = ($meuMenuItem['srv_janela'] == 'pop-up') ? "class='meuMenuPopup'" : "target='iframeMinhaPagina'";
+										echo '<li><a href="' . $meuMenuItem['srv_linke'] . '"class="meuMenuPopup">' . utf8_encode($meuMenuItem['srv_titulo']) . '</a></li>';
+										}
+									}
+									
+									$i++; 
+								}
+								echo '</ul>';
+							} 
+							?>
+                            
                         </div>
                         
                     </div>
