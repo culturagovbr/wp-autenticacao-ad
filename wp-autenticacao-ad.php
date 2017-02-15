@@ -143,7 +143,7 @@ function wp_autenticacao_ad_salvar_dados_pessoais() {
 
 function wp_autenticacao_ad_meu_menu() {
 
-    $logado = minc_intranet_get_usuario();
+    $logado = wp_autenticacao_ad_get_usuario();
     $dao = new UsuarioDAO();
     $meuMenu = $dao->getMenuUsuario($logado->getLogin());    
     return $meuMenu;
