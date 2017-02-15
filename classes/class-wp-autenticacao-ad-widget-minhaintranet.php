@@ -86,7 +86,7 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranet extends WP_Widget {
 										} else { 
 										$target = ($meuMenuItem['srv_janela'] == 'pop-up') ? "class='meuMenuPopup'" : "target='iframeMinhaPagina'";
                                         $targetWindow = ($meuMenuItem['srv_janela'] != 'pop-up') ? "iframeMinhaPagina" : '';
-										echo '<li><a href="' . $meuMenuItem['srv_linke'] . ' "class="meuMenuPopup" target="<?php echo $targetWindow; ?>">' . utf8_encode($meuMenuItem['srv_titulo']) . '</a></li>';
+										echo '<li><a href="' . $meuMenuItem['srv_linke'] . ' "class="meuMenuPopup" target="' . $targetWindow . '">' . utf8_encode($meuMenuItem['srv_titulo']) . '</a></li>';
 										}
 									}
 									
