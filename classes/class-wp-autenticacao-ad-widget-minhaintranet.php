@@ -34,6 +34,7 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranet extends WP_Widget {
 		<?php } ?>
         <a href="#" class="txtIndent"></a>
     </div>
+    <br/>
 <?php
         } 
 
@@ -44,11 +45,15 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranet extends WP_Widget {
             $meuMenu = wp_autenticacao_ad_meu_menu();
 ?>
             
-<div class="caixa_internas caixa_minhasferramentas">
+<div>
   <h1>Minha Página na Intranet</h1>
-  <div class="caixa_conteudo">
+  <div>
     
     <iframe name="iframeMinhaPagina" width="100%" height="500" frameborder="0" src="http://intranet.minc.gov.br/intrascript/spoa/cgmi/credsist/usuarede.idc?LOGON_USER=<?php echo $cpf; ?>&amp;operacao=LOGON&amp;etapa=LOGON&amp;opcao=S"></iframe>
+            <form action="http://intranet.cultura.gov.br/ponto-eletronico/" method="post" class="caixa_bem_vindo">
+            <input name="acao" value="logout" type="hidden">
+            <input value="Sair" class="txtIndent btn-logout" type="submit">
+            </form>
                         </div>
                         
                     </div>

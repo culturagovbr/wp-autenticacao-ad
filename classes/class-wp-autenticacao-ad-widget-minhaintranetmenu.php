@@ -25,19 +25,6 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranetmenu extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
         
-        $mensagens = wp_autenticacao_ad_get_messages();
-        if (is_array($mensagens) && count($mensagens) > 0) {
-?>
-    <div class="caixa_mensagem">
-		<?php foreach ($mensagens as $msg) { ?>
-			<p><?php echo $msg ?></p>
-		<?php } ?>
-        <a href="#" class="txtIndent"></a>
-    </div>
-<?php
-        } 
-
-		// outputs the content of the widget
         if (wp_autenticacao_ad_is_logado()) {
             $usuario = wp_autenticacao_ad_get_usuario();
             $cpf = $usuario->getLogin();

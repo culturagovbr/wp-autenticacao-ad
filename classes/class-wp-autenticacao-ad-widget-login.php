@@ -52,7 +52,7 @@ class Wp_Autenticacao_Ad_Widget_Login extends WP_Widget {
           <br clear="all" /><br clear="all" />
           <form action="<?php echo wp_autenticacao_ad_get_url() ?>" method="post" class="caixa_bem_vindo">
 	    <input type="hidden" name="acao" value="logout"/>
-            <input type="submit" value="Sair" class="txtIndent" />
+            <input type="submit" value="Sair" class="txtIndent btn-logout" />
           </form>
 	  <br clear="all" />
 	  
