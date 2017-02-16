@@ -50,7 +50,7 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranet extends WP_Widget {
   <div>
 <form action="http://intranet.cultura.gov.br/ponto-eletronico/" method="post" class="caixa_bem_vindo">
             <input name="acao" value="logout" type="hidden">
-            <input value="Sair" class="txtIndent btn-logout" type="submit">
+            <div class="container-logout"><input value="Sair" class="txtIndent btn-logout" type="submit"></div>
             </form>    
     <iframe name="iframeMinhaPagina" width="100%" height="500" frameborder="0" src="http://intranet.minc.gov.br/intrascript/spoa/cgmi/credsist/usuarede.idc?LOGON_USER=<?php echo $cpf; ?>&amp;operacao=LOGON&amp;etapa=LOGON&amp;opcao=S"></iframe>
                         </div>
