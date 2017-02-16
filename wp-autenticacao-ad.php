@@ -14,6 +14,7 @@ require_once(DIRNAME(__FILE__) . '/lib/dao/UsuarioDAO.php');
 
 require_once(DIRNAME(__FILE__) . '/classes/class-wp-autenticacao-ad-widget-login.php');
 require_once(DIRNAME(__FILE__) . '/classes/class-wp-autenticacao-ad-widget-minhaintranet.php');
+require_once(DIRNAME(__FILE__) . '/classes/class-wp-autenticacao-ad-widget-minhaintranetmenu.php');
 
 
 add_action('init', 'wp_autenticacao_ad_init', 1);
@@ -362,6 +363,7 @@ function wp_autenticacao_ad_get_ip() {
 add_action( 'widgets_init', function(){
 	register_widget( 'Wp_Autenticacao_Ad_Widget_Login' );
 	register_widget( 'Wp_Autenticacao_Ad_Widget_Minhaintranet' );
+    register_widget( 'Wp_Autenticacao_Ad_Widget_Minhaintranetmenu' );
 });
 
 add_action('init', 'wp_autenticacao_ad_verifica_login', 1);
