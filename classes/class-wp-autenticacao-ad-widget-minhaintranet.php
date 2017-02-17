@@ -62,15 +62,15 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranet extends WP_Widget {
 <h3><?php echo get_option('titulo_login'); ?></h3>
 <form action="<?php echo wp_autenticacao_ad_get_url() ?>" method="post" class="caixa_login">
   
-  <label>Login</label>
-  <input type="text" name="login" value="login" onfocus="if(this.value=='login') this.value='';" onblur="if(this.value=='') this.value='login';" />
+  <label>Usuário</label>
+  <input type="text" name="login" value="cpf" onfocus="if(this.value=='cpf') this.value='';" onblur="if(this.value=='') this.value='cpf';" />
   
   <label>Senha</label>
   <input type="password" name="senha" value="senha" onfocus="if(this.value=='senha') this.value='';" onblur="if(this.value=='') this.value='senha';" />
   
   <input type="hidden" name="acao" value="login"/>
   
-  <input type="submit" value="Ok" class="txtIndent" />
+  <input type="submit" value="Entrar" class="txtIndent" />
 </form>
 <?php
   
