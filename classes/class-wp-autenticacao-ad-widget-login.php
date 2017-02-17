@@ -64,7 +64,7 @@ class Wp_Autenticacao_Ad_Widget_Login extends WP_Widget {
             <form action="<?php echo wp_autenticacao_ad_get_url() ?>" method="post" class="caixa_login">
               
               <label>Usuário</label>
-              <input type="text" name="login" value="cpf" onfocus="if(this.value=='login') this.value='';" onblur="if(this.value=='') this.value='cpf';" />
+              <input type="text" name="login" value="cpf" onfocus="if(this.value=='cpf') this.value='';" onblur="if(this.value=='') this.value='cpf';" />
               
 	      <label>Senha</label>
 	      <input type="password" name="senha" value="senha" onfocus="if(this.value=='senha') this.value='';" onblur="if(this.value=='') this.value='senha';" />
