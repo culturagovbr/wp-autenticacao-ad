@@ -33,7 +33,7 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranetmenu extends WP_Widget {
             
             <div class="et_pb_widget widget_archive">
             
-              <h4 class="widgettitle">Serviços</h4>
+              <h4 class="widgettitle">Minha Página na Intranet</h4>
               
 	      <?php 
             if (isset($meuMenu)) { 
