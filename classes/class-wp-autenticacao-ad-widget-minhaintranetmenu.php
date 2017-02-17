@@ -30,10 +30,13 @@ class Wp_Autenticacao_Ad_Widget_Minhaintranetmenu extends WP_Widget {
             $cpf = $usuario->getLogin();
             $meuMenu = wp_autenticacao_ad_meu_menu();
 ?>
+            <script type="text/javascript">
+            jQuery('body').addClass('autenticado');
+            </script>
             
             <div class="et_pb_widget widget_archive">
             
-              <h4 class="widgettitle">Minha Página na Intranet</h4>
+              <h4 class="widgettitle">Serviços</h4>
               
 	      <?php 
             if (isset($meuMenu)) { 
